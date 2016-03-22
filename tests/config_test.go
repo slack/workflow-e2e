@@ -4,6 +4,7 @@ import (
 	"io/ioutil"
 	"os"
 	"sync"
+	"time"
 
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/ginkgo/extensions/table"
@@ -30,6 +31,8 @@ var _ = Describe("Config", func() {
 		})
 
 		It("can set and list environment variables", func() {
+			time.Sleep(10 * time.Second) // wait for router to reload
+
 			sess, err := start("deis config:set POWERED_BY=midi-chlorians")
 			Expect(err).NotTo(HaveOccurred())
 			Eventually(sess).Should(Say("Creating config"))
